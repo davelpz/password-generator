@@ -5,6 +5,14 @@
 	<groupId>com.davelpz</groupId>
 	<artifactId>password-generator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+		<dependencies>
+		<dependency>
+			<groupId>info.picocli</groupId>
+			<artifactId>picocli</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+	</dependencies>
+	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
