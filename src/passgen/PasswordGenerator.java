@@ -1,10 +1,9 @@
 package passgen;
 
-import java.io.File;
-import java.util.concurrent.Callable;
-
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
+
+import java.util.concurrent.Callable;
 
 @Command(name = "passgen", mixinStandardHelpOptions = true, version = "passgen 1.0", description = "Generate passwords of given length.")
 public class PasswordGenerator implements Callable<Integer> {
@@ -20,12 +19,12 @@ public class PasswordGenerator implements Callable<Integer> {
     }
 
     private String randomDigits(int length) {
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
         for (var i = 0; i < length; i++) {
-            ans += numbers[(int) (Math.random() * numbers.length)];
+            ans.append(numbers[(int) (Math.random() * numbers.length)]);
         }
 
-        return ans;
+        return ans.toString();
     }
 
     private String createPasswordTemplate(int length) {
@@ -53,22 +52,22 @@ public class PasswordGenerator implements Callable<Integer> {
         String[] pieces = base.split("-");
         // System.out.println(Arrays.deepToString(pieces));
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
         boolean toggle = true;
         for (String t : pieces) {
             if (toggle) {
-                result += t;
+                result.append(t);
             } else {
-                result += randomDigits(t.length());
+                result.append(randomDigits(t.length()));
             }
-            result += "-";
+            result.append("-");
             toggle = !toggle;
         }
 
         return result.substring(0, 1).toUpperCase() + result.substring(1, length - 1) + randomSpecial();
     }
     
-    public Integer call() throws Exception {
+    public Integer call() {
         System.out.println(generatePassword());
         return 0;
     }
